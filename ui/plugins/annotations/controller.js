@@ -28,9 +28,7 @@ treeherder.controller('AnnotationsPluginCtrl', [
                     $scope.deleteBug($scope.bugs[i]);
                 }
 
-                // We reselect job in place ensuring a correct state for other actions
-                // Potential update with follow up 1181271
-                $rootScope.$emit(thEvents.selectJob, $rootScope.selectedJob, 'passive');
+                $rootScope.$emit(thEvents.jobsClassified, $rootScope.selectedJob);
             } else {
                 thNotify.send("No classification on this job to delete", 'warning');
             }
