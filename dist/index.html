@@ -7,7 +7,7 @@
         <link id="favicon" type="image/png" rel="shortcut icon" href="img/tree_open.png">
         <th-favicon-link></th-favicon-link>
 
-        <link rel="stylesheet" href="css/index.min-af02a215ac75616889875483344d9963.css" media="screen">
+        <link rel="stylesheet" href="css/index.min-dcae7c265f732cffc87ff89942b535bc.css" media="screen">
 
     </head>
     <body ng-controller="MainCtrl" ng-keydown="processKeyboardInput($event)">
@@ -31,7 +31,7 @@
 
         <th-notification-box></th-notification-box>
 
-        <script src="js/index.min-3420d6cb999e5430f4fd92e74486c519.js"></script>
+        <script src="js/index.min-43c894fe51d32d237c380dd4ee5d7f7d.js"></script>
 
         <script src="js/config/local.conf.js"></script>
         <script src="https://login.persona.org/include.js"></script>
@@ -95,11 +95,24 @@
         </script>
 
         <!-- Start span for job groups -->
-        <script type="'text/ng-template'" id="jobGroupBeginClone.html">
+        <script type="'text/ng-template'" id="jobGroupClone.html">
             <span class="platform-group">
-                <span class="disabled job-group" title="{{ name }}">{{ symbol }}(</span>
-                <span class="job-group-list"></span>)
+                <span class="disabled job-group" title="{{ name }}"
+                      data-grkey="{{ grkey }}">
+                    <span class="group-symbol"
+                          ignore-job-clear-on-click>{{ symbol }}</span>
+                    <span class="group-content">
+                        <span class="group-job-list"></span>
+                        <span class="group-count-list"></span>
+                    </span>
+                </span>
             </span>
+        </script>
+
+        <!-- Job group count span for each count item -->
+        <script type="'text/ng-template'" id="jobGroupCountClone.html">
+            <button class="btn {{ selectedClasses }} group-btn btn-xs job-group-count {{ btnClass }}"
+                    title="{{ title }}">{{ value }}</button>
         </script>
 
         <!-- Job Btn span -->
@@ -126,7 +139,7 @@
                     <tr>
                         <th class="small">Machine name</th>
                         <td class="small">
-                            <a target="_blank" href="https://secure.pub.build.mozilla.org/builddata/reports/slave_health/slave.html?name={{ job.machine_name }}">{{ job.machine_name }}</a>
+                            <a target="_blank" href="{{ getSlaveHealthUrl(job.machine_name) }}">{{ job.machine_name }}</a>
                         </td>
                     </tr>
                     <tr ng-repeat="(label, value) in visibleFields"><th>{{label}}</th><td>{{ value }}</td></tr>
