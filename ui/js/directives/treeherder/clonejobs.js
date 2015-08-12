@@ -731,7 +731,9 @@ treeherder.directive('thCloneJobs', [
         };
 
         var scrollToElement = function(el, duration){
-            duration = duration || 100;
+            if (_.isUndefined(duration)) {
+                duration = 50;
+            }
             if(el.position() !== undefined){
                 $('.th-global-content').scrollTo(el, duration, {offset: -40});
             }
